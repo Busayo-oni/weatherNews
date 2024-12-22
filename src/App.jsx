@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer'; // Import Footer
 import WeatherPage from './pages/WeatherPage';
 import NewsPage from './pages/NewsPage';
+import NewsDetail from './components/NewsDetail';
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<WeatherPage />} />
             <Route path="/news" element={<NewsPage />} />
+            <Route path="/news/:title" element={<NewsDetail />} />
           </Routes>
         </div>
         <Footer /> {/* Add Footer */}
