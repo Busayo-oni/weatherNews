@@ -7,7 +7,7 @@ const NewsDetail = () => {
   const { article } = location.state || {};
 
   if (!article) {
-    // Redirect to the home page if no article data is passed
+    // Redirect to the home page if no article data is available
     navigate('/');
     return null;
   }
