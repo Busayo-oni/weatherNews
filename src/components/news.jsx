@@ -9,10 +9,9 @@ function News() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // NewsAPI base URL
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Optional proxy for CORS issues
-  const baseUrl = 'https://newsapi.org/v2';
-  const apiKey = process.env.REACT_APP_NEWS_API_KEY; // Replace with your actual API key
+  // API Key (Replace 'your_api_key_here' with the actual key in the .env file)
+  const apiKey = '16304a0c99be80c74f419e8f47779ca5';
+  const baseUrl = 'https://gnews.io/api/v4';
 
   // Fetch news articles
   const fetchNews = async () => {
@@ -20,8 +19,8 @@ function News() {
     setError(null);
     try {
       const endpoint = query
-        ? `${baseUrl}/everything?q=${query}&apiKey=${apiKey}`
-        : `${baseUrl}/top-headlines?category=${category}&country=us&apiKey=${apiKey}`;
+        ? `${baseUrl}/search?q=${query}&lang=en&country=us&max=10&apikey=${apiKey}`
+        : `${baseUrl}/search?q=${category}&lang=en&country=us&max=10&apikey=${apiKey}`;
 
       const response = await axios.get(endpoint, {
         headers: {
@@ -32,7 +31,11 @@ function News() {
       setArticles(response.data.articles);
     } catch (err) {
       console.error(err);
-      setError('Failed to fetch news. Please try again later.');
+      if (err.response?.status === 429) {
+        setError('API request limit reached. Please try again later.');
+      } else {
+        setError('Failed to fetch news. Please try again later.');
+      }
     } finally {
       setLoading(false);
     }
@@ -98,7 +101,12 @@ function News() {
 
       {/* Loading State */}
       {loading && (
-        <p className="text-gray-500 dark:text-gray-400 text-center">Loading...</p>
+        <p
+          className="text-gray-500 dark:text-gray-400 text-center"
+          aria-live="polite"
+        >
+          Loading...
+        </p>
       )}
 
       {/* News Articles */}
@@ -110,21 +118,22 @@ function News() {
               className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
             >
               <img
-                src={article.urlToImage || 'https://via.placeholder.com/150'}
-                alt={article.title}
+                src={article.image || 'https://via.placeholder.com/150'}
+                alt={article.title || 'Article Image'}
                 className="w-full h-40 object-cover rounded-lg mb-4"
+                loading="lazy"
               />
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
-                {article.title}
+                {article.title || 'Untitled Article'}
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                {article.source.name}
+                {article.source?.name || 'Unknown Source'}
               </p>
               <p className="text-sm text-gray-700 dark:text-gray-300 mt-2">
-                {article.description?.slice(0, 100)}...
+                {article.description?.slice(0, 100) || 'No description available.'}
               </p>
               <Link
-                to={`/news/${encodeURIComponent(article.title)}`}
+                to={`/news/${encodeURIComponent(article.title || 'untitled')}`}
                 state={{ article }}
                 className="text-blue-600 dark:text-blue-400 mt-4 inline-block"
               >

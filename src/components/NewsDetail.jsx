@@ -24,10 +24,11 @@ const NewsDetail = () => {
       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
         {article.urlToImage && (
           <img
-            src={article.urlToImage}
-            alt={article.title}
-            className="w-full h-60 object-cover rounded-lg mb-4"
-          />
+          src={article.image || 'https://via.placeholder.com/150'}
+          alt={article.title}
+          className="w-full h-40 object-cover rounded-lg mb-4"
+          loading="lazy"
+        />
         )}
         <h1 className="text-3xl font-bold mb-4 text-gray-800 dark:text-white">
           {article.title}
