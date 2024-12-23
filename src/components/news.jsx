@@ -12,7 +12,7 @@ function News() {
   // NewsAPI base URL
   const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Optional proxy for CORS issues
   const baseUrl = 'https://newsapi.org/v2';
-  const apiKey = '5f9dce0cff844015bd9ebc1449e5e571'; // Replace with your actual API key
+  const apiKey = process.env.REACT_APP_NEWS_API_KEY; // Replace with your actual API key
 
   // Fetch news articles
   const fetchNews = async () => {
