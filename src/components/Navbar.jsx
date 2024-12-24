@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import DarkModeToggle from './DarkModeToggle';
+import logo from '../assets/logo1.png';
 
 function Navbar({ darkMode, setDarkMode }) {
   const [isOpen, setIsOpen] = useState(false); // State to toggle the menu
@@ -10,7 +11,7 @@ function Navbar({ darkMode, setDarkMode }) {
   return (
     <nav className="flex flex-col md:flex-row justify-between items-center p-4 bg-blue-600 dark:bg-blue-800 text-white shadow-lg">
       <div className="flex justify-between items-center w-full md:w-auto">
-        <div className="text-xl font-bold tracking-wide">Dashboard</div>
+        <div className="object-cover w-[20%] "><img src={logo} alt="" /></div>
         {/* Hamburger Icon */}
         <button
           onClick={() => setIsOpen(!isOpen)}
