@@ -25,7 +25,7 @@ function Navbar({ darkMode, setDarkMode }) {
       <div
         className={`${
           isOpen ? 'flex' : 'hidden'
-        } w-full md:flex md:w-auto md:flex-row flex-col lg:items-center ite  gap-4 mt-4 md:mt-0`}
+        } pl-6 w-full items-start md:flex md:w-auto md:flex-row flex-col lg:items-center ite  gap-4 mt-4 md:mt-0`}
       >
         <Link
           to="/"
@@ -49,7 +49,7 @@ function Navbar({ darkMode, setDarkMode }) {
         >
           News
         </Link>
-        <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
+        <DarkModeToggle darkMode={darkMode} setDarkMode={setDarkMode}  />
       </div>
     </nav>
   );
